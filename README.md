@@ -1,24 +1,27 @@
-# README
+# Google Cloud Vision Sample
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Google Cloud Ruby Github
+https://github.com/googleapis/google-cloud-ruby/blob/master/README.md#cloud-vision-api-alpha
 
-Things you may want to cover:
+**Quick Start**
 
-* Ruby version
+```
+$ gem install google-cloud-vision
+```
 
-* System dependencies
+**Preview**
 
-* Configuration
+```
+require "google/cloud/vision"
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+image_annotator_client = Google::Cloud::Vision::ImageAnnotator.new
+gcs_image_uri = "gs://gapic-toolkit/President_Barack_Obama.jpg"
+source = { gcs_image_uri: gcs_image_uri }
+image = { source: source }
+type = :FACE_DETECTION
+features_element = { type: type }
+features = [features_element]
+requests_element = { image: image, features: features }
+requests = [requests_element]
+response = image_annotator_client.batch_annotate_images(requests)
+```
